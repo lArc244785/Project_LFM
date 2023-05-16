@@ -5,22 +5,30 @@ using UnityEngine;
 public class WeaponManager : MonoBehaviour
 {
 	[SerializeField]
-	private List<WeaponBase> mWeaponList = new List<WeaponBase>();
-	private WeaponConroller mConroller;
+	private List<WeaponBase> m_weaponList = new List<WeaponBase>();
+	private WeaponConroller m_conroller;
+	private WeaponInfoGUI m_infoGUI;
 
-	private void Awake()
+	private void Start()
 	{
-		mConroller = GetComponent<WeaponConroller>();
+		m_conroller = GetComponent<WeaponConroller>();
+		m_infoGUI = GameObject.FindObjectOfType<WeaponInfoGUI>();
+
+		foreach (var weapon in m_weaponList)
+			weapon.Init();
+
 		ChangeWeapon(0);
 	}
 
 	public void ChangeWeapon(int slotIndex)
 	{
-		if(!mConroller.CanChangeWeapon())
+		if(!m_conroller.CanChangeWeapon())
 			return;
 
-		mConroller.WeaponVisable(false);
-		mConroller.SetWeapon(mWeaponList[slotIndex]);
-		mConroller.WeaponVisable(true);
+		m_conroller.WeaponVisable(false);
+		m_conroller.SetWeapon(m_weaponList[slotIndex]);
+		m_conroller.WeaponVisable(true);
+
+		m_infoGUI.ChangeWeapon(m_conroller.HandleWeapon);
 	}
 }

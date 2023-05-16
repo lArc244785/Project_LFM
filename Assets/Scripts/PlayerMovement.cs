@@ -4,14 +4,22 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour,IMovable
 {
-	private float mSpeed = 10.0f;
-	private bool mIsMoveAble = false;
-	public float Speed { get => mSpeed; set => mSpeed = value; }
-	public bool IsMoveAble { get => mIsMoveAble; set => mIsMoveAble = value; }
+	private float m_speed = 10.0f;
+	private bool m_isMoveAble = false;
+	private Vector3 m_moveDir;
+	public float Speed { get => m_speed; set => m_speed = value; }
+	public bool IsMoveAble { get => m_isMoveAble; set => m_isMoveAble = value; }
+	public Vector3 MoveDir { get => m_moveDir; set => m_moveDir = value; }
 
-	public void Move(Vector3 moveDir)
+	protected CharacterController m_characterController;
+
+	private void Start()
 	{
-		//transform.Rotate(moveDir);
-		transform.Translate(moveDir * Speed * Time.deltaTime);
+		m_characterController = GetComponent<CharacterController>();
+	}
+
+	private void Update()
+	{
+		m_characterController.Move(MoveDir * Time.deltaTime * Speed);
 	}
 }

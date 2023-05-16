@@ -35,6 +35,7 @@ public class Health : MonoBehaviour
 
 	private void Dead()
 	{
+		Debug.Log($"{gameObject.name} is Dead!!!");
 		OnDead?.Invoke();
 	}
 

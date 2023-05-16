@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public enum WeaponState
 {
@@ -11,22 +13,22 @@ public enum WeaponState
 
 public abstract class WeaponBase : MonoBehaviour
 {
-	[SerializeField]
-	protected float mMaxAmmo;
-	private float mAmmo;
+	[field:SerializeField]
+	public float MaxAmmo { protected set; get; }
+	private float m_ammo;
 	public float Ammo
 	{
 		set
 		{
-			mAmmo = value;
-			mAmmo = Mathf.Clamp(mAmmo, .0f, mMaxAmmo);
+			m_ammo = value;
+			m_ammo = Mathf.Clamp(m_ammo, .0f, MaxAmmo);
 
-			if (mAmmo <= 0.0f)
+			if (m_ammo <= 0.0f)
 				State = WeaponState.Empty;
 		}
 		get
 		{
-			return mAmmo;
+			return m_ammo;
 		}
 	}
 	public WeaponState State
@@ -35,25 +37,35 @@ public abstract class WeaponBase : MonoBehaviour
 		get;
 	}
 
-	protected float mNextFireTime;
+	protected float m_nextFireTime;
 
 	[SerializeField]
-	private float mReloadTime;
+	private float m_reloadTime;
 
-	private float mReloadEndTime;
-
-	[SerializeField]
-	protected GameObject mBullet;
+	private float m_reloadEndTime;
 
 	[SerializeField]
-	private float mTick;
+	protected GameObject m_bullet;
 
 	[SerializeField]
-	protected Transform mFirePoint;
+	private float m_tick;
+
+	[SerializeField]
+	protected Transform m_firePoint;
+
+	public Action OnFire;
+	public Action OnStartReload;
+	public Action OnFinshReload;
+
+	public void Init()
+	{
+		Ammo = MaxAmmo;
+		State = WeaponState.Firable;
+	}
 
 	public bool CanFire()
 	{
-		float fireWait = mNextFireTime - Time.time;
+		float fireWait = m_nextFireTime - Time.time;
 		bool isFirable = State == WeaponState.Firable || (State == WeaponState.Reload && Ammo > 0.0f);
 
 		return fireWait <= .0f && isFirable;
@@ -61,6 +73,8 @@ public abstract class WeaponBase : MonoBehaviour
 
 	public virtual bool Fire(ClickType type)
 	{
+		OnFire?.Invoke();
+
 		if (!CanFire())
 			return false;
 
@@ -80,26 +94,30 @@ public abstract class WeaponBase : MonoBehaviour
 
 		Debug.Log("Reload");
 		State = WeaponState.Reload;
-		mReloadEndTime = Time.time + mReloadTime;
+		m_reloadEndTime = Time.time + m_reloadTime;
+
+		OnStartReload?.Invoke();
 	}
 
-	private void ChackReload()
+	private void FinshReload()
 	{
-		var waitTime = mReloadEndTime - Time.time;
+		var waitTime = m_reloadEndTime - Time.time;
 
 		Debug.Log($"Reloading {waitTime}");
 		if (waitTime > 0.0f)
 			return;
+		//Finsh Reload
+		Ammo = MaxAmmo;
 
-		Ammo = mMaxAmmo;
 		State = WeaponState.Firable;
+		OnFinshReload?.Invoke();
 	}
 
 	protected abstract void SpawnBullet();
 
 	protected void UpdateNextFireTime()
 	{
-		mNextFireTime = Time.time + mTick;
+		m_nextFireTime = Time.time + m_tick;
 	}
 
 	/// <summary>
@@ -111,7 +129,7 @@ public abstract class WeaponBase : MonoBehaviour
 	private void Update()
 	{
 		if (State == WeaponState.Reload)
-			ChackReload();
+			FinshReload();
 
 		ChildUpdate();
 	}

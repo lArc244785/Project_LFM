@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class WeaponAuto : WeaponBase
 {
-	private void Start()
-	{
-		Ammo = mMaxAmmo;
-	}
 
 	public override bool Fire(ClickType type)
 	{
@@ -30,12 +26,11 @@ public class WeaponAuto : WeaponBase
 
 	protected override void SpawnBullet()
 	{
-		var bullet = Instantiate(mBullet);
-		bullet.transform.position = mFirePoint.position;
-		bullet.transform.rotation = mFirePoint.rotation;
+		var bullet = Instantiate(m_bullet);
+		bullet.transform.position = m_firePoint.position;
+		bullet.transform.rotation = m_firePoint.rotation;
 		bullet.SetActive(true);
 		Ammo--;
-		Debug.Log($"SpawnBullet {Ammo}");
 	}
 
 }

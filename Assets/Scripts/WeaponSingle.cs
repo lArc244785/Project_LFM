@@ -6,7 +6,7 @@ public class WeaponSingle : WeaponBase
 {
 	private void Start()
 	{
-		Ammo = mMaxAmmo;
+		Ammo = MaxAmmo;
 	}
 	public override bool Fire(ClickType type)
 	{

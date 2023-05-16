@@ -12,25 +12,25 @@ public enum ClickType
 
 public class PlayerInput : MonoBehaviour
 {
-	private PlayerMovement mMovement;
-	private WeaponManager mWeaponManager;
-	private WeaponConroller mConroller;
+	private IMovable m_playerMove;
+	private WeaponManager m_weaponManager;
+	private WeaponConroller m_conroller;
 
-	public bool isDebug;
+	public bool IsDebug;
 
-	private bool mIsMousePress;
+	private bool m_isMousePress;
 
 	private void Awake()
 	{
-		mMovement = GetComponent<PlayerMovement>();
-		mWeaponManager = GetComponent<WeaponManager>();
-		mConroller = GetComponent<WeaponConroller>();
+		m_playerMove = GetComponent<PlayerMovement>();
+		m_weaponManager = GetComponent<WeaponManager>();
+		m_conroller = GetComponent<WeaponConroller>();
 	}
 
 	public void OnMove(Vector3 input)
 	{
 		input = input.normalized;
-		mMovement.Move(input);
+		m_playerMove.MoveDir = input;
 	}
 
 	private void Update()
@@ -41,7 +41,7 @@ public class PlayerInput : MonoBehaviour
 		var input = new Vector3(z, 0.0f, -x);
 		var rotationInput = Quaternion.AngleAxis(-45.0f, Vector3.up) * input;
 
-		if (isDebug)
+		if (IsDebug)
 			Debug.Log(rotationInput);
 
 		OnMove(rotationInput);
@@ -49,23 +49,23 @@ public class PlayerInput : MonoBehaviour
 
 		if (Input.GetMouseButtonDown(0))
 		{
-			mConroller.HandleFire(ClickType.Down);
-			mIsMousePress = true;
+			m_conroller.HandleFire(ClickType.Down);
+			m_isMousePress = true;
 		}
-		else if(mIsMousePress)
+		else if(m_isMousePress)
 		{
-			mConroller.HandleFire(ClickType.Press);
+			m_conroller.HandleFire(ClickType.Press);
 		}
 		
 		if(Input.GetMouseButtonUp(0))
 		{
-			mConroller.HandleFire(ClickType.Up);
-			mIsMousePress = false;
+			m_conroller.HandleFire(ClickType.Up);
+			m_isMousePress = false;
 		}
 
 		if(Input.GetKeyDown(KeyCode.R))
 		{
-			mConroller.HandleReload();
+			m_conroller.HandleReload();
 		}
 
 	}

@@ -2,34 +2,34 @@ using UnityEngine;
 
 public class WeaponConroller : MonoBehaviour
 {
-	private WeaponBase mWepaon;
+	public WeaponBase HandleWeapon { private set; get; }
 
 	public void HandleFire(ClickType type)
 	{
-		mWepaon.Fire(type);
+		HandleWeapon.Fire(type);
 	}
 
 	public void HandleReload()
 	{
-		mWepaon.Reload();
+		HandleWeapon.Reload();
 	}
 
 	public bool CanChangeWeapon()
 	{
-		if (mWepaon == null)
+		if (HandleWeapon == null)
 			return true;
 
-		return mWepaon.CanFire();
+		return HandleWeapon.CanFire();
 	}
 
 	public void SetWeapon(WeaponBase weapon)
 	{
-		mWepaon = weapon;
+		HandleWeapon = weapon;
 	}
 
 	public void WeaponVisable(bool isVisable)
 	{
-		if (mWepaon != null)
-			mWepaon.gameObject.SetActive(isVisable);
+		if (HandleWeapon != null)
+			HandleWeapon.gameObject.SetActive(isVisable);
 	}
 }
