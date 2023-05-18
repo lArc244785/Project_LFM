@@ -13,9 +13,12 @@ public class Bullet : MonoBehaviour
 
 	private Rigidbody mRig;
 
-	private void Start()
+	private BulletType mBulletType;
+
+	public void Init(BulletType type)
 	{
 		mRig = GetComponent<Rigidbody>();
+		mBulletType = type;
 	}
 
 	private void Update()

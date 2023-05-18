@@ -30,6 +30,7 @@ public class WeaponAuto : WeaponBase
 		bullet.transform.position = m_firePoint.position;
 		bullet.transform.rotation = m_firePoint.rotation;
 		bullet.SetActive(true);
+		bullet.GetComponent<Bullet>().Init(m_weaponBuff.BulletType);
 		Ammo--;
 	}
 

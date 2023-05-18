@@ -2,20 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponManager : MonoBehaviour
+public class WeaponManager : MonoBehaviour, IWeaponBuff
 {
 	[SerializeField]
 	private List<WeaponBase> m_weaponList = new List<WeaponBase>();
 	private WeaponConroller m_conroller;
 	private WeaponInfoGUI m_infoGUI;
+	private AdditionalAbility m_additional;
+
+	public BulletType BulletType { set; get; }
+	public float FireCoolRatio { set; get; } = 0.0f;
 
 	private void Start()
 	{
 		m_conroller = GetComponent<WeaponConroller>();
 		m_infoGUI = GameObject.FindObjectOfType<WeaponInfoGUI>();
+		m_additional = GetComponent<AdditionalAbility>();
 
 		foreach (var weapon in m_weaponList)
-			weapon.Init();
+			weapon.Init(m_additional, this);
 
 		ChangeWeapon(0);
 	}

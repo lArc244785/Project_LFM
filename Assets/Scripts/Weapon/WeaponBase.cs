@@ -57,9 +57,14 @@ public abstract class WeaponBase : MonoBehaviour
 	public Action OnStartReload;
 	public Action OnFinshReload;
 
-	public void Init()
+	protected IWeaponBuff m_weaponBuff;
+	protected AdditionalAbility m_additional;
+
+	public virtual void Init(AdditionalAbility additional, IWeaponBuff buff)
 	{
 		Ammo = MaxAmmo;
+		m_weaponBuff = buff;
+		m_additional = additional;
 		State = WeaponState.Firable;
 	}
 
@@ -117,7 +122,7 @@ public abstract class WeaponBase : MonoBehaviour
 
 	protected void UpdateNextFireTime()
 	{
-		m_nextFireTime = Time.time + m_tick;
+		m_nextFireTime = Time.time + (m_tick - (m_tick * m_weaponBuff.FireCoolRatio));
 	}
 
 	/// <summary>
