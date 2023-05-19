@@ -52,7 +52,6 @@ public class JoyStick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointer
 	public void OnPointerUp(PointerEventData eventData)
 	{
 		m_joystickRectTransfrom.anchoredPosition = m_joystickPivotPos;
-		OnInputChange?.Invoke(Vector2.zero);
 	}
 
 	public void OnPointerDown(PointerEventData eventData)

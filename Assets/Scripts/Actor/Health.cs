@@ -5,16 +5,22 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
+	private int m_maxHp;
+	public int MaxHp => m_maxHp + AdditionalHealth.HP;
 	public int HP { get; private set; }
 	public bool IsDead { get; private set; }
 	public bool IsGodMode { get; set; }
 
+	public event Action OnHeal;
 	public event Action OnHit;
 	public event Action OnDead;
 
-	public void Init(int hp)
+	public AdditionalHealth AdditionalHealth { get; private set; } = new();
+
+	public void Init(int maxHp)
 	{
-		HP = hp;
+		m_maxHp = maxHp;
+		HP = MaxHp;
 	}
 
 	public void TakeDamage(int damage)
@@ -31,6 +37,13 @@ public class Health : MonoBehaviour
 		}
 
 		OnHit?.Invoke();
+	}
+
+	public void Heal(int heal)
+	{
+		HP += heal;
+		HP = Mathf.Clamp(HP, 0, MaxHp);
+		OnHeal?.Invoke();
 	}
 
 	private void Dead()

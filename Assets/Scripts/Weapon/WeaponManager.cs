@@ -8,7 +8,9 @@ public class WeaponManager : MonoBehaviour, IWeaponBuff
 	private List<WeaponBase> m_weaponList = new List<WeaponBase>();
 	private WeaponConroller m_conroller;
 	private WeaponInfoGUI m_infoGUI;
-	private AdditionalAbility m_additional;
+
+	public AdditionalGun AdditionalGun { private set; get; } = new();
+	public AdditionalDamage AdditionalDamage { private set; get; } = new();
 
 	public BulletType BulletType { set; get; }
 	public float FireCoolRatio { set; get; } = 0.0f;
@@ -17,18 +19,20 @@ public class WeaponManager : MonoBehaviour, IWeaponBuff
 	{
 		m_conroller = GetComponent<WeaponConroller>();
 		m_infoGUI = GameObject.FindObjectOfType<WeaponInfoGUI>();
-		m_additional = GetComponent<AdditionalAbility>();
 
 		foreach (var weapon in m_weaponList)
-			weapon.Init(m_additional, this);
+		{
+			weapon.Init(AdditionalGun, AdditionalDamage, this);
+			weapon.gameObject.SetActive(false);
+		}
 
 		ChangeWeapon(0);
 	}
 
 	public void ChangeWeapon(int slotIndex)
 	{
-		if(!m_conroller.CanChangeWeapon())
-			return;
+		//if(!m_conroller.CanChangeWeapon())
+		//	return;
 
 		m_conroller.WeaponVisable(false);
 		m_conroller.SetWeapon(m_weaponList[slotIndex]);

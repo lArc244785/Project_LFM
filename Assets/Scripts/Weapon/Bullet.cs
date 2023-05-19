@@ -5,25 +5,26 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
 	[SerializeField]
-	private float mSpeed;
+	private float m_speed;
 	[SerializeField]
-	private int mDamage;
+	private int m_damage;
 	[SerializeField]
-	private LayerMask mMask;
+	private LayerMask m_mask;
 
-	private Rigidbody mRig;
+	private Rigidbody m_rig;
 
-	private BulletType mBulletType;
+	private BulletType m_bulletType;
 
-	public void Init(BulletType type)
+	public void Init(BulletType type, int addDamage)
 	{
-		mRig = GetComponent<Rigidbody>();
-		mBulletType = type;
+		m_rig = GetComponent<Rigidbody>();
+		m_bulletType = type;
+		m_damage += addDamage;
 	}
 
 	private void Update()
 	{
-		mRig.velocity = transform.forward * mSpeed;
+		m_rig.velocity = transform.forward * m_speed;
 	}
 
 	private void OnCollisionEnter(Collision collision)
@@ -32,7 +33,7 @@ public class Bullet : MonoBehaviour
 		if (damagable == null)
 			return;
 
-		damagable.OnDamge(mDamage);
+		damagable.OnDamge(m_damage);
 		Destroy(gameObject);
 	}
 }

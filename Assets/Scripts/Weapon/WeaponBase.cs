@@ -13,8 +13,9 @@ public enum WeaponState
 
 public abstract class WeaponBase : MonoBehaviour
 {
-	[field:SerializeField]
-	public float MaxAmmo { protected set; get; }
+	[field: SerializeField]
+	private int m_maxAmmo;
+	public int MaxAmmo => m_maxAmmo + m_additionalGun.Bullet;
 	private float m_ammo;
 	public float Ammo
 	{
@@ -58,13 +59,16 @@ public abstract class WeaponBase : MonoBehaviour
 	public Action OnFinshReload;
 
 	protected IWeaponBuff m_weaponBuff;
-	protected AdditionalAbility m_additional;
 
-	public virtual void Init(AdditionalAbility additional, IWeaponBuff buff)
+	protected AdditionalGun m_additionalGun;
+	protected AdditionalDamage m_additionalDamage;
+
+	public virtual void Init(AdditionalGun addGun, AdditionalDamage addDamage, IWeaponBuff buff)
 	{
+		m_additionalGun = addGun;
+		m_additionalDamage = addDamage;
 		Ammo = MaxAmmo;
 		m_weaponBuff = buff;
-		m_additional = additional;
 		State = WeaponState.Firable;
 	}
 
@@ -99,7 +103,7 @@ public abstract class WeaponBase : MonoBehaviour
 
 		Debug.Log("Reload");
 		State = WeaponState.Reload;
-		m_reloadEndTime = Time.time + m_reloadTime;
+		m_reloadEndTime = Time.time + m_reloadTime - (m_reloadTime * m_additionalGun.ReloadCoolTime);
 
 		OnStartReload?.Invoke();
 	}

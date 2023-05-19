@@ -15,8 +15,7 @@ public class HealthInfoGUI : MonoBehaviour
         m_health.OnHit += DrawGUI;
         DrawGUI();
     }
-
-    private void DrawGUI()
+	private void DrawGUI()
 	{
         m_hp.text = m_health.HP.ToString();
 	}

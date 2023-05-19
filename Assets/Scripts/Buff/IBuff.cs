@@ -8,6 +8,7 @@ public enum BuffType
 	Speed,
 	EffectBullet,
 	FireSpeed,
+	WeaponChange,
 }
 
 public interface IBuff 
