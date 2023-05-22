@@ -21,7 +21,6 @@ public class JoyStick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointer
 
 	public void OnDrag(PointerEventData eventData)
 	{
-		Debug.Log("OnDrag");
 		if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
 			m_areaRectTransfrom,
 			eventData.position,
@@ -30,11 +29,7 @@ public class JoyStick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointer
 		{
 			inputPos.x = inputPos.x / m_areaRectTransfrom.sizeDelta.x;
 			inputPos.y = inputPos.y / m_areaRectTransfrom.sizeDelta.y;
-
-			Debug.Log(inputPos);
 			inputPos = new Vector2(inputPos.x * 2 + 1, inputPos.y * 2 - 1);
-			Debug.Log(inputPos);
-			Debug.Log("===================");
 
 			if (inputPos.magnitude > 1)
 				inputPos = inputPos.normalized;

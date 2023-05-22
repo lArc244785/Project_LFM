@@ -26,7 +26,7 @@ public class WeaponSG : WeaponBase
 
 	protected override void SpawnBullet()
 	{
-		var bullet = Instantiate(m_bullet);
+		var bullet = m_objectPoolManager.GetPooledObject(m_bullet);
 		bullet.transform.position = m_firePoint.position;
 		bullet.transform.rotation = m_firePoint.rotation;
 		bullet.SetActive(true);

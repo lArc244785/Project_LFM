@@ -29,7 +29,7 @@ public class Health : MonoBehaviour
 			return;
 
 		HP -= damage;
-		Debug.Log($"Take Damage {HP}");
+		Debug.Log($"Take Damage{gameObject.name} {HP}");
 		if (HP <= 0)
 		{
 			Dead();

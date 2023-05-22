@@ -46,7 +46,8 @@ public abstract class WeaponBase : MonoBehaviour
 	private float m_reloadEndTime;
 
 	[SerializeField]
-	protected GameObject m_bullet;
+	protected ObjectPoolKey m_bullet;
+	protected ObjectPoolManager m_objectPoolManager;
 
 	[SerializeField]
 	private float m_tick;
@@ -62,6 +63,11 @@ public abstract class WeaponBase : MonoBehaviour
 
 	protected AdditionalGun m_additionalGun;
 	protected AdditionalDamage m_additionalDamage;
+
+	private void Start()
+	{
+		m_objectPoolManager = GameObject.Find("ObjectPoolManager").GetComponent<ObjectPoolManager>();
+	}
 
 	public virtual void Init(AdditionalGun addGun, AdditionalDamage addDamage, IWeaponBuff buff)
 	{
