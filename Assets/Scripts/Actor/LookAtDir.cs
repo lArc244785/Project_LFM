@@ -15,9 +15,9 @@ public class LookAtDir : MonoBehaviour
 		m_attackJoyStick.OnInputChange += LookAt;
 	}
 
-	public void LookAt(Vector2 dir)
+	public void LookAt(Vector3 dir)
 	{
-		Vector3 diraction = new Vector3(dir.x, 0, dir.y);
+		Vector3 diraction = dir;
 
 		var calculation = Quaternion.AngleAxis(Camera.main.transform.rotation.eulerAngles.y, Vector3.up) * diraction;
 

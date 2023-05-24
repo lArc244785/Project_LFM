@@ -2,10 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public enum ObjectPoolKey
 {
-	BulletMG,
-	BulletSG,
+	Bullet_MG,
+	Bullet_SG,
+	Item_Speed,
+	Item_HP,
+	Item_WepaonChagenSG,
+	Item_FireSpeed,
 }
 
 public class ObjectPoolManager : MonoBehaviour

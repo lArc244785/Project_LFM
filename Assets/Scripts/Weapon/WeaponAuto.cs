@@ -7,11 +7,12 @@ public class WeaponAuto : WeaponBase
 
 	public override bool Fire(ClickType type)
 	{
+		if (type == ClickType.Up)
+			return false;
+
 		if (!base.Fire(type))
 			return false;
 
-		if (type == ClickType.Up)
-			return false;
 
 		SpawnBullet();
 		UpdateNextFireTime();

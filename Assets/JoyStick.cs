@@ -11,11 +11,19 @@ public class JoyStick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointer
 
 	private Vector2 m_joystickPivotPos;
 
-	public event Action<Vector2> OnInputChange;
+	public event Action<Vector3> OnInputChange;
+
+	[SerializeField]
+	private bool m_isPivotRight;
+	private int m_xPos = -1;
+
+	public bool IsDown { private set; get; }
 
 	private void Start()
 	{
 		m_joystickPivotPos = m_joystickRectTransfrom.anchoredPosition;
+		if (!m_isPivotRight)
+			m_xPos = 1;
 	}
 
 
@@ -29,7 +37,7 @@ public class JoyStick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointer
 		{
 			inputPos.x = inputPos.x / m_areaRectTransfrom.sizeDelta.x;
 			inputPos.y = inputPos.y / m_areaRectTransfrom.sizeDelta.y;
-			inputPos = new Vector2(inputPos.x * 2 + 1, inputPos.y * 2 - 1);
+			inputPos = new Vector2(inputPos.x * 2 + m_xPos, inputPos.y * 2 - 1);
 
 			if (inputPos.magnitude > 1)
 				inputPos = inputPos.normalized;
@@ -40,17 +48,22 @@ public class JoyStick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointer
 
 			m_joystickRectTransfrom.anchoredPosition = inputPos;
 
-			OnInputChange?.Invoke(inputPos);
+			Vector3 input = new Vector3(inputPos.x, 0.0f, inputPos.y);
+
+			OnInputChange?.Invoke(input);
 		}
 	}
 
 	public void OnPointerUp(PointerEventData eventData)
 	{
 		m_joystickRectTransfrom.anchoredPosition = m_joystickPivotPos;
+		OnInputChange?.Invoke(Vector3.zero);
+		IsDown = false;
 	}
 
 	public void OnPointerDown(PointerEventData eventData)
 	{
 		Debug.Log("OnPointerDown");
+		IsDown = true;
 	}
 }
