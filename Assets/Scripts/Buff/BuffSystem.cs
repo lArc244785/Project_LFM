@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuffManager : MonoBehaviour
+public class BuffSystem : MonoBehaviour
 {
 	private List<IBuff> m_buffList = new();
 

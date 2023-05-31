@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour,IMovable
+public class PlayerMovement : MonoBehaviour, IMovable
 {
 	private float m_speed = 10.0f;
 	private bool m_isMoveAble = false;
@@ -17,10 +15,12 @@ public class PlayerMovement : MonoBehaviour,IMovable
 	private void Start()
 	{
 		m_characterController = GetComponent<CharacterController>();
+		IsMoveAble = true;
 	}
 
-	private void Update()
+	public void Move(Vector3 moveDir)
 	{
-		m_characterController.Move(MoveDir * Time.deltaTime * Speed);
+		if (m_isMoveAble)
+			m_characterController.Move(moveDir * Time.deltaTime * Speed);
 	}
 }

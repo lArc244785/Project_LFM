@@ -2,42 +2,64 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponManager : MonoBehaviour, IWeaponBuff
+public enum WeaponIndex
 {
-	[SerializeField]
-	private List<WeaponBase> m_weaponList = new List<WeaponBase>();
-	private WeaponConroller m_conroller;
-	private WeaponInfoGUI m_infoGUI;
+	MachineGun,
+	//ShotGun,
+	//MaxMachineGun,
+	Total
+}
 
-	public AdditionalGun AdditionalGun { private set; get; } = new();
-	public AdditionalDamage AdditionalDamage { private set; get; } = new();
+public class WeaponManager : MonoBehaviour
+{
+	private PlayerInputHandler m_inputHandler;
+	private Weapon m_currentWeapon;
 
-	public BulletType BulletType { set; get; }
-	public float FireCoolRatio { set; get; } = 0.0f;
+	private Weapon[] m_weapons;
 
-	private void Start()
+	private WeaponInfoGUI m_weaponInfoGUI;
+
+
+	public void Init(PlayerInputHandler inputHandler)
 	{
-		m_conroller = GetComponent<WeaponConroller>();
-		m_infoGUI = GameObject.FindObjectOfType<WeaponInfoGUI>();
+		m_inputHandler = inputHandler;
+		m_weaponInfoGUI = GameObject.Find("WeaponInfo").GetComponent<WeaponInfoGUI>();
 
-		foreach (var weapon in m_weaponList)
-		{
-			weapon.Init(AdditionalGun, AdditionalDamage, this);
+		m_weapons = transform.Find("WeaponPivot").GetComponentsInChildren<Weapon>();
+		foreach (Weapon weapon in m_weapons)
 			weapon.gameObject.SetActive(false);
+
+		if (m_weapons.Length != (int)WeaponIndex.Total)
+		{
+			Debug.LogError($"missing weapon ammount {m_weapons.Length} {(int)WeaponIndex.Total}");
+			return;
 		}
 
-		ChangeWeapon(0);
+		SetWeapon(WeaponIndex.MachineGun);
 	}
 
-	public void ChangeWeapon(int slotIndex)
+
+	private void Update()
 	{
-		//if(!m_conroller.CanChangeWeapon())
-		//	return;
+		//Fire
+		if (m_inputHandler.GetFireInputDown() || m_inputHandler.GetFireInputHeld())
+			m_currentWeapon.Fire();
+		//Reload
+		if (m_inputHandler.GetReload())
+			m_currentWeapon.Reload();
+	}
 
-		m_conroller.WeaponVisable(false);
-		m_conroller.SetWeapon(m_weaponList[slotIndex]);
-		m_conroller.WeaponVisable(true);
+	public void SetWeapon(WeaponIndex index)
+	{
+		if(m_currentWeapon != null)
+		{
+			m_weaponInfoGUI.ReleseWeapon();
+			m_currentWeapon.gameObject.SetActive(false);
+		}
 
-		m_infoGUI.ChangeWeapon(m_conroller.HandleWeapon);
+		m_currentWeapon = m_weapons[(int)index];
+		m_currentWeapon.gameObject.SetActive(true);
+		m_currentWeapon.Init();
+		m_weaponInfoGUI.SetWeapon(m_currentWeapon);
 	}
 }

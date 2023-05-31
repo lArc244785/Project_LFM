@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BuffItem : MonoBehaviour,IItem
 {
-	private BuffManager m_buffManger;
+	private BuffSystem m_buffManger;
 	private IBuff m_buff;
 	private PooledObject m_pooledObject;
 
@@ -13,7 +13,7 @@ public class BuffItem : MonoBehaviour,IItem
 	private void Start()
 	{
 		m_pooledObject  = GetComponent<PooledObject>();
-		m_buffManger = GameObject.Find("Player").GetComponent<BuffManager>();
+		m_buffManger = GameObject.Find("Player").GetComponent<BuffSystem>();
 		m_buff = GetComponent<IBuff>();
 	}
 

@@ -11,7 +11,7 @@ public class JoyStick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointer
 
 	private Vector2 m_joystickPivotPos;
 
-	public event Action<Vector3> OnInputChange;
+	public Vector3 Input { get; private set; }
 
 	[SerializeField]
 	private bool m_isPivotRight;
@@ -50,14 +50,14 @@ public class JoyStick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointer
 
 			Vector3 input = new Vector3(inputPos.x, 0.0f, inputPos.y);
 
-			OnInputChange?.Invoke(input);
+			Input = input;
 		}
 	}
 
 	public void OnPointerUp(PointerEventData eventData)
 	{
 		m_joystickRectTransfrom.anchoredPosition = m_joystickPivotPos;
-		OnInputChange?.Invoke(Vector3.zero);
+		Input = Vector3.zero;
 		IsDown = false;
 	}
 

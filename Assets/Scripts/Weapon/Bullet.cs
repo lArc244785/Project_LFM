@@ -5,55 +5,51 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
 	[SerializeField]
-	private float m_speed;
-	[SerializeField]
 	private int m_damage;
 	[SerializeField]
 	private float m_lifeTime;
+	[SerializeField]
+	private float m_speed;
+
+	private Vector3 m_dir;
 	private float m_deadTime;
 
-	[SerializeField]
-	private LayerMask m_targetMask;
-
 	private PooledObject m_pooledObject;
-
-	private Rigidbody m_rig;
-
-	private BulletType m_bulletType;
 
 	private void Start()
 	{
 		m_pooledObject = GetComponent<PooledObject>();
 	}
 
-	public void Init(BulletType type, int addDamage)
+	public void Init(Transform pivot, Vector3 dir)
 	{
-		m_rig = GetComponent<Rigidbody>();
-		m_bulletType = type;
-		m_damage += addDamage;
+		transform.position = pivot.position;
+		transform.rotation = pivot.rotation;
+
 		m_deadTime = Time.time + m_lifeTime;
+		SetDir(dir);
+	}
+
+	private void SetDir(Vector3 dir)
+	{
+		m_dir = dir;
 	}
 
 	private void Update()
 	{
-		m_rig.velocity = transform.forward * m_speed;
-		if(Time.time >= m_deadTime)
+		if(m_deadTime < Time.time)
 		{
 			m_pooledObject.Release();
 		}
+
+		transform.Translate(m_dir * m_speed * Time.deltaTime, Space.World);
 	}
 
 	private void OnTriggerEnter(Collider other)
 	{
-		int mask = 1 << other.gameObject.layer;
-		if ((m_targetMask & mask) == 0)
+		if (other.tag != "Enmey")
 			return;
-
-		var damagable = other.gameObject.GetComponent<Damagable>();
-		if (damagable == null)
-			return;
-
-		damagable.OnDamge(m_damage);
-		m_pooledObject.Release();
+		other.GetComponent<Damagable>().OnDamge(m_damage);
 	}
+
 }

@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
 	public GameState State { get; private set; }
 
 	private GameObject GUIGameOver;
-	private PlayerInput m_input;
+	private PlayerInputHandler m_input;
 
 	private void Start()
 	{
@@ -24,14 +24,13 @@ public class GameManager : MonoBehaviour
 		GUIGameOver.SetActive(false);
 
 		var goPlayer = GameObject.Find("Player");
-		m_input = goPlayer.GetComponent<PlayerInput>();
+		m_input = goPlayer.GetComponent<PlayerInputHandler>();
 		goPlayer.GetComponent<Health>().OnDead += GameOver;
 	}
 
 	private void GameOver()
 	{
 		GUIGameOver.SetActive(true);
-		m_input.IsControl = false;
 		State = GameState.GameOver;
 	}
 

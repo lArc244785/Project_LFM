@@ -6,11 +6,8 @@ using UnityEngine;
 public enum ObjectPoolKey
 {
 	Bullet_MG,
-	Bullet_SG,
 	Item_Speed,
 	Item_HP,
-	Item_WepaonChagenSG,
-	Item_FireSpeed,
 }
 
 public class ObjectPoolManager : MonoBehaviour
