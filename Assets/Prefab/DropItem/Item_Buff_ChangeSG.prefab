@@ -10,9 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8019996981497244265}
   - component: {fileID: 6958669583243238525}
-  - component: {fileID: 8530156875427478142}
-  - component: {fileID: 5383749788971376330}
-  - component: {fileID: 7821610086713161345}
+  - component: {fileID: 7865940921640012628}
+  - component: {fileID: 8454435771006913956}
   m_Layer: 0
   m_Name: Item_Buff_ChangeSG
   m_TagString: Untagged
@@ -49,20 +48,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8530156875427478142
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1335295439666720487}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f10d8d017ff1e0e48bb5d82b628b6ac7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_poolKey: 4
---- !u!114 &5383749788971376330
+--- !u!114 &7865940921640012628
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -74,7 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e3749b21de7bf14990e72bee06a9cc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7821610086713161345
+--- !u!114 &8454435771006913956
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -83,11 +69,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1335295439666720487}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 154a980e6e028f841bfae759c2da33c5, type: 3}
+  m_Script: {fileID: 11500000, guid: a2433e6ff9533ce43a1f7c597744bf59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_duration: 10
-  m_weaponIndex: 1
+  m_duration: 5
 --- !u!1 &2373858981758051612
 GameObject:
   m_ObjectHideFlags: 0

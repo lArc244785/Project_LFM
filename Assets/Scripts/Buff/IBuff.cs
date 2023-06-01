@@ -7,7 +7,7 @@ public enum BuffType
 {
 	Speed,
 	EffectBullet,
-	FireSpeed,
+	AddRPM,
 	WeaponChange,
 }
 

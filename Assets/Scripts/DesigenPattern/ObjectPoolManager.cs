@@ -6,8 +6,10 @@ using UnityEngine;
 public enum ObjectPoolKey
 {
 	Bullet_MG,
-	Item_Speed,
 	Item_HP,
+	Item_Buff_Speed,
+	Item_Buff_AddRPM,
+	Item_Buff_ChnageShotGun,
 }
 
 public class ObjectPoolManager : MonoBehaviour
@@ -26,6 +28,11 @@ public class ObjectPoolManager : MonoBehaviour
 
 	public GameObject GetPooledObject(ObjectPoolKey key)
 	{
+		if(!m_objectPool.ContainsKey(key))
+		{
+			Debug.LogError($"Not ContainsKey {key}");
+			return null;
+		}
 		return m_objectPool[key].GetPooledObject();
 	}
 }

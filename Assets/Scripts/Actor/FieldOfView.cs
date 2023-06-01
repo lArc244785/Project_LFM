@@ -3,10 +3,14 @@ using UnityEngine;
 
 public class FieldOfView : MonoBehaviour
 {
-	public bool IsDebug;
-	public float viewAngle;
-	public float range;
-	public LayerMask TargetMask;
+	[SerializeField]
+	private bool m_isDebug;
+	[SerializeField]
+	private float m_viewAngle;
+	[SerializeField]
+	private float m_range;
+	[SerializeField]
+	private LayerMask m_targetMask;
 
 	private float m_lookAngle;
 
@@ -14,10 +18,16 @@ public class FieldOfView : MonoBehaviour
 	private Vector3 m_lDir;
 	private Vector3 m_rDir;
 
+
+	public void SetRange(float range)
+	{
+		m_range = range;
+	}
+
 	public bool TryGetMinDistanceActor(out Actor actor)
 	{
 		ChangeLookDir();
-		Collider[] enemys = Physics.OverlapSphere(transform.position, range, TargetMask);
+		Collider[] enemys = Physics.OverlapSphere(transform.position, m_range, m_targetMask);
 		actor = null;
 
 		if (enemys.Length < 0)
@@ -29,7 +39,7 @@ public class FieldOfView : MonoBehaviour
 			Vector3 t = c.transform.position - transform.position;
 			float distance = t.magnitude;
 			float tAngle = Mathf.Acos(Vector3.Dot(m_lookDir, t.normalized)) * Mathf.Rad2Deg;
-			if (tAngle <= (viewAngle * 0.5f))
+			if (tAngle <= (m_viewAngle * 0.5f))
 			{
 				if (minDistance > distance)
 				{
@@ -48,26 +58,26 @@ public class FieldOfView : MonoBehaviour
 	private void ChangeLookDir()
 	{
 		m_lookAngle = transform.rotation.eulerAngles.y;
-		m_lDir = GetAngleToDir(m_lookAngle - (viewAngle * 0.5f));
-		m_rDir = GetAngleToDir(m_lookAngle + (viewAngle * 0.5f));
+		m_lDir = GetAngleToDir(m_lookAngle - (m_viewAngle * 0.5f));
+		m_rDir = GetAngleToDir(m_lookAngle + (m_viewAngle * 0.5f));
 		m_lookDir = GetAngleToDir(m_lookAngle);
 	}
 
 
 	private void OnDrawGizmos()
 	{
-		if (!IsDebug)
+		if (!m_isDebug)
 			return;
 
 		Gizmos.color = Color.white;
-		Gizmos.DrawWireSphere(transform.position, range);
+		Gizmos.DrawWireSphere(transform.position, m_range);
 		ChangeLookDir();
 		Gizmos.color = Color.green;
-		Gizmos.DrawLine(transform.position, transform.position + (m_lookDir * 10));
+		Gizmos.DrawLine(transform.position, transform.position + (m_lookDir * m_range));
 		Gizmos.color = Color.blue;
-		Gizmos.DrawLine(transform.position, transform.position + (m_lDir * 10));
+		Gizmos.DrawLine(transform.position, transform.position + (m_lDir * m_range));
 		Gizmos.color = Color.red;
-		Gizmos.DrawLine(transform.position, transform.position + (m_rDir * 10));
+		Gizmos.DrawLine(transform.position, transform.position + (m_rDir * m_range));
 		
 		if (TryGetMinDistanceActor(out var actor))
 		{

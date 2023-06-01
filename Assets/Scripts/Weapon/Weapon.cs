@@ -10,16 +10,17 @@ public enum WeaponState
 	Empty,
 }
 
-public class Weapon : MonoBehaviour
+public class Weapon : MonoBehaviour, IWeaponInfo
 {
 	[SerializeField]
 	private bool m_isDebug;
 	private float m_nextFireAbleTime;
-	[SerializeField]
-	private float m_fireTick;
+
 	[field:SerializeField]
 	public int MaxAmmo { get; private set; }
 	public int Ammo { get; private set; }
+	[SerializeField]
+	private int m_fireBullet;
 
 	[SerializeField]
 	private float m_reload;
@@ -34,6 +35,8 @@ public class Weapon : MonoBehaviour
 
 	public WeaponState state { private set; get; }
 
+
+
 	public event Action OnFire;
 	public event Action OnEmpty;
 	public event Action OnReloadStart;
@@ -43,6 +46,23 @@ public class Weapon : MonoBehaviour
 
 	private ObjectPoolManager m_poolManager;
 
+	//===WeaponInfo====
+	[SerializeField]
+	private string m_name;
+	public string Name => m_name;
+
+	[SerializeField]
+	private int m_baseRPM;
+	public int BaseRPM => m_baseRPM;
+	public int AddRPM { get; set; }
+
+
+	private float GetFireTick()
+	{
+		int rpm = BaseRPM + AddRPM;
+		return 60.0f / rpm;
+	}
+
 	private void Start()
 	{
 		m_poolManager = GameObject.Find("ObjectPoolManager").GetComponent<ObjectPoolManager>();
@@ -50,6 +70,7 @@ public class Weapon : MonoBehaviour
 
 	public void Init()
 	{
+
 		Ammo = MaxAmmo;
 		state = WeaponState.Firable;
 		m_nextFireAbleTime = 0.0f;
@@ -70,12 +91,13 @@ public class Weapon : MonoBehaviour
 	{
 		if (!CanFire())
 			return;
-		Debug.Log("Fire");
 
-		var shotDir = GetShotDir();
-		var bullet = m_poolManager.GetPooledObject(ObjectPoolKey.Bullet_MG);
-		bullet.GetComponent<Bullet>().Init(m_aimPoint, shotDir);
-
+		for(int i = 0; i < m_fireBullet; i++)
+		{
+			var shotDir = GetShotDir();
+			var bullet = m_poolManager.GetPooledObject(ObjectPoolKey.Bullet_MG);
+			bullet.GetComponent<Bullet>().Init(m_aimPoint, shotDir);
+		}
 		Ammo--;
 		OnFire?.Invoke();
 
@@ -85,7 +107,7 @@ public class Weapon : MonoBehaviour
 			OnEmpty?.Invoke();
 		}
 
-		m_nextFireAbleTime = Time.time + m_fireTick;
+		m_nextFireAbleTime = Time.time + GetFireTick();
 	}
 
 	public void Reload()

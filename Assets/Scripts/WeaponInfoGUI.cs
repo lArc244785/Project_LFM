@@ -59,7 +59,7 @@ public class WeaponInfoGUI : MonoBehaviour
 
 	private void UpdateWeapon()
 	{
-		m_weaponName.text = m_weapon.name;
+		m_weaponName.text = m_weapon.Name;
 		UpdateAmmo();
 	}
 

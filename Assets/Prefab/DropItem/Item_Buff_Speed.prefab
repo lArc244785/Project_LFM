@@ -10,9 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8019996981497244265}
   - component: {fileID: 6958669583243238525}
-  - component: {fileID: 8530156875427478142}
-  - component: {fileID: 7182433201083368398}
   - component: {fileID: 5383749788971376330}
+  - component: {fileID: 3978673660077963914}
   m_Layer: 0
   m_Name: Item_Buff_Speed
   m_TagString: Untagged
@@ -49,32 +48,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8530156875427478142
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1335295439666720487}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f10d8d017ff1e0e48bb5d82b628b6ac7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7182433201083368398
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1335295439666720487}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3a39aa1753c34a4ebb05fbbded9adae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_duration: 10
-  m_speed: 5
 --- !u!114 &5383749788971376330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,6 +60,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e3749b21de7bf14990e72bee06a9cc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3978673660077963914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335295439666720487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d483ebdbd1a48e408cacc78b21649aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SpeedUp: 5
+  m_duration: 10
 --- !u!1 &2961408075160300458
 GameObject:
   m_ObjectHideFlags: 0

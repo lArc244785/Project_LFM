@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMovement))]
-public class PlayerManager : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
 	private Health m_health;
+	
 	private WeaponManager m_weaponManager;
-	private BuffSystem m_buffSystem;
-	private PlayerMovement m_playerMovement;
+	private FieldOfView m_fieldOfView;
 	private Actor m_actor;
+
+	private BuffSystem m_buffSystem;
+	
+	private PlayerMovement m_playerMovement;
 	private PlayerInputHandler m_playerInputHandler;
 
 
@@ -21,8 +25,9 @@ public class PlayerManager : MonoBehaviour
 		m_actor = GetComponent<Actor>();
 		m_playerMovement = GetComponent<PlayerMovement>();
 		m_playerInputHandler = GetComponent<PlayerInputHandler>();
+		m_fieldOfView = GetComponent<FieldOfView>();
 
-		m_weaponManager.Init(m_playerInputHandler);
+		m_weaponManager.Init(m_playerInputHandler, m_fieldOfView, m_actor);
 	}
 
 	private void Update()

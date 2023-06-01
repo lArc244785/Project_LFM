@@ -16,9 +16,12 @@ public class Bullet : MonoBehaviour
 
 	private PooledObject m_pooledObject;
 
+	private LayerMask m_hitMask;
+
 	private void Start()
 	{
 		m_pooledObject = GetComponent<PooledObject>();
+		m_hitMask = LayerMask.GetMask("Enemy");
 	}
 
 	public void Init(Transform pivot, Vector3 dir)
@@ -47,8 +50,11 @@ public class Bullet : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.tag != "Enmey")
+		int targetMask = 1 << other.gameObject.layer;
+
+		if ((m_hitMask & targetMask) == 0)
 			return;
+
 		other.GetComponent<Damagable>().OnDamge(m_damage);
 	}
 
