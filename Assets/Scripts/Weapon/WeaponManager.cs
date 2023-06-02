@@ -74,7 +74,6 @@ public class WeaponManager : MonoBehaviour
 				var dir = (target.AimPoint - transform.position).normalized;
 				dir.y = 0;
 				Quaternion rot = Quaternion.LookRotation(dir);
-				Debug.Log(rot.eulerAngles);
 				transform.rotation = rot;
 			}
 

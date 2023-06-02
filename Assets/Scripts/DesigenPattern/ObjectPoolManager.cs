@@ -10,6 +10,10 @@ public enum ObjectPoolKey
 	Item_Buff_Speed,
 	Item_Buff_AddRPM,
 	Item_Buff_ChnageShotGun,
+	
+	Enemy_Normal = 1000,
+	Eneny_Speed,
+	Enemy_Heavy,
 }
 
 public class ObjectPoolManager : MonoBehaviour

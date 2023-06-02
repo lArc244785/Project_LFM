@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
+	[SerializeField]
 	private int m_maxHp;
 	public int MaxHp => m_maxHp + AdditionalHealth.HP;
 	public int HP { get; private set; }
@@ -17,9 +18,8 @@ public class Health : MonoBehaviour
 
 	public AdditionalHealth AdditionalHealth { get; private set; } = new();
 
-	public void Init(int maxHp)
+	public void Init()
 	{
-		m_maxHp = maxHp;
 		HP = MaxHp;
 	}
 
@@ -29,7 +29,7 @@ public class Health : MonoBehaviour
 			return;
 
 		HP -= damage;
-		Debug.Log($"Take Damage{gameObject.name} {HP}");
+		//Debug.Log($"Take Damage{gameObject.name} {HP}");
 		if (HP <= 0)
 		{
 			Dead();
@@ -48,7 +48,7 @@ public class Health : MonoBehaviour
 
 	private void Dead()
 	{
-		Debug.Log($"{gameObject.name} is Dead!!!");
+		//Debug.Log($"{gameObject.name} is Dead!!!");
 		OnDead?.Invoke();
 	}
 

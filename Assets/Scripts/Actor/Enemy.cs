@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PooledObject))]
 public class Enemy : MonoBehaviour
 {
 	public Health Health { private set; get; }
@@ -10,19 +12,29 @@ public class Enemy : MonoBehaviour
 	[SerializeField]
 	private int m_damage;
 
-	public void Init()
+	private PooledObject m_pooledObject;
+
+	public event Action<Enemy> OnDead;
+
+	private void Awake()
 	{
 		m_target = LayerMask.GetMask("Player");
+		m_pooledObject = GetComponent<PooledObject>();
 		Health = GetComponent<Health>();
-		Health.Init(10);
 		Health.OnDead += Dead;
+	}
+
+	public void Init()
+	{
+		Health.Init();
 	}
 
 	private void Dead()
 	{
-		Health.OnDead -= Dead;
-		Destroy(gameObject);
+		OnDead?.Invoke(this);
+		m_pooledObject.Release();
 	}
+
 	private void OnTriggerEnter(Collider other)
 	{
 		int player = 1 << other.gameObject.layer;
