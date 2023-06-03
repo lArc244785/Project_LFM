@@ -2643,6 +2643,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 820df679c971e6d4a9a926215f8de05d, type: 3}
+--- !u!114 &1183038734 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8168668970385805174, guid: 820df679c971e6d4a9a926215f8de05d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1183038733}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1222005816
 GameObject:
   m_ObjectHideFlags: 0
@@ -3573,8 +3585,9 @@ GameObject:
   - component: {fileID: 1701818380}
   - component: {fileID: 1701818382}
   - component: {fileID: 1701818381}
+  - component: {fileID: 1701818383}
   m_Layer: 5
-  m_Name: GameOver
+  m_Name: GameResult
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3640,6 +3653,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1701818379}
   m_CullTransparentMesh: 1
+--- !u!114 &1701818383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1701818379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e732b9216c695424393a7ff946bc260a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_resultText: {fileID: 1183038734}
 --- !u!1 &1714672651
 GameObject:
   m_ObjectHideFlags: 0

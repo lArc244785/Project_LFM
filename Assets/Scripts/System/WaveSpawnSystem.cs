@@ -121,7 +121,7 @@ public class WaveSpawnSystem : MonoBehaviour
 		m_waveDeadCount++;
 		enmey.OnDead -= EnemyDead;
 
-		Debug.Log($"Last Enemy {m_waveSpawnAmount - m_waveDeadCount}");
+		//Debug.Log($"Last Enemy {m_waveSpawnAmount - m_waveDeadCount}");
 
 		if (IsWaveEnemyAllDead())
 			NextWave();
@@ -132,12 +132,12 @@ public class WaveSpawnSystem : MonoBehaviour
 		m_wave++;
 		if (m_wave == m_endWave)
 		{
-			Debug.Log("End");
+			EventManager.Broadcast(Events.PlayerWin);
 			m_isWaveSystemOn = false;
 		}
 		else
 		{
-			Debug.Log("Next Wave");
+			//Debug.Log("Next Wave");
 			ResetWaveDate();
 		}
 	}

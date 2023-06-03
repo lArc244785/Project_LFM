@@ -6,36 +6,44 @@ using UnityEngine.SceneManagement;
 public enum GameState
 {
 	Play,
+	GameClear,
 	GameOver,
 }
 
 public class GameManager : MonoBehaviour
 {
-	public GameState State { get; private set; }
-
-	private GameObject GUIGameOver;
-	private PlayerInputHandler m_input;
+	public static GameState State { get; private set; }
 
 	private void Start()
 	{
 		State = GameState.Play;
-
-		GUIGameOver = GameObject.Find("GameOver");
-		GUIGameOver.SetActive(false);
-
-		var goPlayer = GameObject.Find("Player");
-		m_input = goPlayer.GetComponent<PlayerInputHandler>();
-		goPlayer.GetComponent<Health>().OnDead += GameOver;
+		EventManager.AddListner<PlayerWin>(GameClear);
+		EventManager.AddListner<PlayerLoss>(GameOver);
 	}
 
-	private void GameOver()
+
+	private void GameClear(PlayerWin win)
 	{
-		GUIGameOver.SetActive(true);
+		Debug.Log("GameClear");
+		State = GameState.GameClear;
+	}
+
+	private void GameOver(PlayerLoss loss)
+	{
+		Debug.Log("GameOver");
 		State = GameState.GameOver;
 	}
 
 	public void Continue()
 	{
 		SceneManager.LoadScene(0, LoadSceneMode.Single);
+	}
+
+	private void Update()
+	{
+		if (State != GameState.Play && Input.anyKey)
+		{
+			Continue();
+		}
 	}
 }
