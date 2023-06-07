@@ -17,18 +17,18 @@ public class GameManager : MonoBehaviour
 	private void Start()
 	{ 
 		State = GameState.Play;
-		EventManager.AddListner<PlayerWin>(GameClear);
-		EventManager.AddListner<PlayerLoss>(GameOver);
+		EventManager.AddListner<GameClear>(GameClear);
+		EventManager.AddListner<GameOver>(GameOver);
 	}
 
 
-	private void GameClear(PlayerWin win)
+	private void GameClear(GameClear win)
 	{
 		Debug.Log("GameClear");
 		State = GameState.GameClear;
 	}
 
-	private void GameOver(PlayerLoss loss)
+	private void GameOver(GameOver loss)
 	{
 		Debug.Log("GameOver");
 		State = GameState.GameOver;

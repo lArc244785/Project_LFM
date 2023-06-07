@@ -13,31 +13,39 @@ public class WaveSpawnSystem : MonoBehaviour
 	[SerializeField]
 	private int m_endWave;
 
+	[SerializeField]
+	private int m_waveSpawnCount;
+	[SerializeField]
+	private int m_waveDeadCount;
+
+
 	private int m_wave;
 	private int m_enmeyAmount = 3;
 
-	private int m_waveSpawnAmount = 1000;
+	private int m_waveSpawnAmount = 10;
 
 	private float[,] m_randomSpawnTable = { { 0.8f, 0.2f, 0.0f }, { 0.5f, 0.4f, 0.1f }, { 0.3f, 0.5f, 0.2f } };
 
 	private Transform m_playerTransform;
-	private ObjectPoolManager m_objectPoolManager;
 
-	private int m_waveDeadCount;
-	[SerializeField]
-	private int m_waveSpawnCount;
 
 	private float m_spawnTick;
 	private float m_currentTick;
 	private bool m_isWaveSystemOn;
 
+	private EnemeyManager m_enemyManager;
+
+
+	private List<Enemy> m_waveEnemys = new();
+
 	private void Start()
 	{
 		m_playerTransform = GameObject.Find("Player").transform;
-		m_objectPoolManager = GameObject.Find("ObjectPoolManager").GetComponent<ObjectPoolManager>();
+		m_enemyManager = GameObject.Find("GameManager").GetComponent<EnemeyManager>();
+		EventManager.AddListner<EnemyKill>(WaveEnemyDead);
 
 		SetUp();
-		StartWave(0.01f);
+		StartWave(0.1f);
 	}
 
 	private void Update()
@@ -69,15 +77,23 @@ public class WaveSpawnSystem : MonoBehaviour
 	{
 		ObjectPoolKey randomSpawnEnemy = GetRandomSpawnEnemy();
 		Vector3 randomSpawnPoint = GetRandomSpawnPoint();
-		GameObject goEnemy = m_objectPoolManager.GetPooledObject(randomSpawnEnemy);
-		goEnemy.transform.position = randomSpawnPoint;
-		var spawnEnemy = goEnemy.GetComponent<Enemy>();
 
-		spawnEnemy.Init();
-		spawnEnemy.OnDead += EnemyDead;
+		var spawnEnemy = m_enemyManager.SpawnEnemy(randomSpawnEnemy, randomSpawnPoint);
 
+		m_waveEnemys.Add(spawnEnemy);
 		m_waveSpawnCount++;
 		m_currentTick = m_spawnTick;
+	}
+
+	private void WaveEnemyDead(EnemyKill waveEnemy)
+	{
+		if(m_waveEnemys.Contains(waveEnemy.enemy))
+		{
+			m_waveEnemys.Remove(waveEnemy.enemy);
+			m_waveDeadCount++;
+			if (IsWaveEnemyAllDead())
+				NextWave();
+		}
 	}
 
 	private void ResetWaveDate()
@@ -116,23 +132,12 @@ public class WaveSpawnSystem : MonoBehaviour
 		return spawnPoint;
 	}
 
-	private void EnemyDead(Enemy enmey)
-	{
-		m_waveDeadCount++;
-		enmey.OnDead -= EnemyDead;
-
-		//Debug.Log($"Last Enemy {m_waveSpawnAmount - m_waveDeadCount}");
-
-		if (IsWaveEnemyAllDead())
-			NextWave();
-	}
-
 	private void NextWave()
 	{
 		m_wave++;
 		if (m_wave == m_endWave)
 		{
-			EventManager.Broadcast(Events.PlayerWin);
+			EventManager.Broadcast(Events.GameClear);
 			m_isWaveSystemOn = false;
 		}
 		else

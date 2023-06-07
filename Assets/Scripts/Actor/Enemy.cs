@@ -14,7 +14,6 @@ public class Enemy : MonoBehaviour
 
 	private PooledObject m_pooledObject;
 
-	public event Action<Enemy> OnDead;
 
 	private void Awake()
 	{
@@ -29,9 +28,10 @@ public class Enemy : MonoBehaviour
 		Health.Init();
 	}
 
-	private void Dead()
+	public void Dead()
 	{
-		OnDead?.Invoke(this);
+		Events.EnemyKill.enemy = this;
+		EventManager.Broadcast(Events.EnemyKill);
 		m_pooledObject.Release();
 	}
 

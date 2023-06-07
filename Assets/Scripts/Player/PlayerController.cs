@@ -27,13 +27,10 @@ public class PlayerController : MonoBehaviour
 		m_weaponManager.Init(m_playerInputHandler, m_fieldOfView, m_actor);
 
 		m_health.Init();
-		m_health.OnDead += () =>
-		{
-			m_health.IsGodMode = true;
-			EventManager.Broadcast(Events.PlayerLoss);
-		};
-		//HP GUI SetUp
-		GameObject.Find("HealthInfo").GetComponent<HealthInfoGUI>().Init(m_health);
+		Events.PlayerHeathUpdate.PlayerHealth = m_health;
+		m_health.OnDead += OnDead;
+		m_health.OnHit += OnHit;
+		EventManager.Broadcast(Events.PlayerHeathUpdate);
 	}
 
 	private void Update()
@@ -50,4 +47,14 @@ public class PlayerController : MonoBehaviour
 		return GameManager.State == GameState.Play;
 	}
 
+	private void OnDead()
+	{
+		m_health.IsGodMode = true;
+		EventManager.Broadcast(Events.GameOver);
+	}
+
+	private void OnHit()
+	{
+		EventManager.Broadcast(Events.PlayerHeathUpdate);
+	}
 }

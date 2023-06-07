@@ -11,17 +11,17 @@ public class GameResultGUI : MonoBehaviour
 	private void Start()
 	{
 		m_startTim = Time.time;
-		EventManager.AddListner<PlayerWin>(DrawGameWin);
-		EventManager.AddListner<PlayerLoss>(DrawGameLoss);
+		EventManager.AddListner<GameClear>(DrawGameWin);
+		EventManager.AddListner<GameOver>(DrawGameLoss);
 		gameObject.SetActive(false);
 	}
 
-	private void DrawGameWin(PlayerWin win)
+	private void DrawGameWin(GameClear win)
 	{
 		DrawGameResult(true);
 	}
 
-	private void DrawGameLoss(PlayerLoss loss)
+	private void DrawGameLoss(GameOver loss)
 	{
 		DrawGameResult(false);
 	}

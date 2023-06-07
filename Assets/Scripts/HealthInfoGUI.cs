@@ -5,27 +5,13 @@ public class HealthInfoGUI : MonoBehaviour
 	[SerializeField]
 	private TextMeshProUGUI m_hp;
 
-	private Health m_health;
-
-	public void Init(Health health)
+	private void Awake()
 	{
-		m_health = health;
-		m_health.OnHit += DrawGUI;
-		m_health.OnDead += DrawGUI;
-		DrawGUI();
+		EventManager.AddListner<PlayerHeathUpdate>(DrawGUI);
 	}
 
-	private void DrawGUI()
+	private void DrawGUI(PlayerHeathUpdate heathUpdate)
 	{
-		m_hp.text = m_health.HP.ToString();
-	}
-
-	private void OnDestroy()
-	{
-		if (m_health == null)
-			return;
-
-		m_health.OnHit -= DrawGUI;
-		m_health.OnDead -= DrawGUI;
+		m_hp.text = heathUpdate.PlayerHealth.HP.ToString();
 	}
 }

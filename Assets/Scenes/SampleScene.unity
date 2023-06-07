@@ -2444,6 +2444,7 @@ GameObject:
   - component: {fileID: 1110643428}
   - component: {fileID: 1110643430}
   - component: {fileID: 1110643431}
+  - component: {fileID: 1110643432}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2495,6 +2496,7 @@ MonoBehaviour:
   m_deadRange: 5
   m_endWave: 3
   m_waveSpawnCount: 0
+  m_waveDeadCount: 0
 --- !u!114 &1110643431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2507,6 +2509,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3134a1fe3476388449ad445cb3113ab5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1110643432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110643427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3803863fc9beb5644b98e82f82dd63d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_liveEnemyCount: 0
 --- !u!1001 &1183038733
 PrefabInstance:
   m_ObjectHideFlags: 0
