@@ -25,11 +25,15 @@ public class PlayerController : MonoBehaviour
 		m_fieldOfView = GetComponent<FieldOfView>();
 
 		m_weaponManager.Init(m_playerInputHandler, m_fieldOfView, m_actor);
+
+		m_health.Init();
 		m_health.OnDead += () =>
 		{
 			m_health.IsGodMode = true;
 			EventManager.Broadcast(Events.PlayerLoss);
 		};
+		//HP GUI SetUp
+		GameObject.Find("HealthInfo").GetComponent<HealthInfoGUI>().Init(m_health);
 	}
 
 	private void Update()

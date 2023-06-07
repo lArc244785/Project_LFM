@@ -43,6 +43,12 @@ public class EventManager:MonoBehaviour
 		}
 	}
 
+	public static void ResetEvent()
+	{
+		m_events.Clear();
+		m_lookUpEvents.Clear();
+	}
+
 	public static void Broadcast(GameEvent evt)
 	{
 		if(m_events.TryGetValue(evt.GetType(), out Action<GameEvent> action))

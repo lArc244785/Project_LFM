@@ -6,14 +6,15 @@ public class HealthInfoGUI : MonoBehaviour
 	private TextMeshProUGUI m_hp;
 
 	private Health m_health;
-	// Start is called before the first frame update
-	void Start()
+
+	public void Init(Health health)
 	{
-		m_health = GameObject.FindWithTag("Player").GetComponent<Health>();
+		m_health = health;
 		m_health.OnHit += DrawGUI;
 		m_health.OnDead += DrawGUI;
 		DrawGUI();
 	}
+
 	private void DrawGUI()
 	{
 		m_hp.text = m_health.HP.ToString();

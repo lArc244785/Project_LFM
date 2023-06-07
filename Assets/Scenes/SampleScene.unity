@@ -446,7 +446,7 @@ MonoBehaviour:
   <Type>k__BackingField: 1000
   m_prefab: {fileID: 2921772213221326610, guid: 9834c5c391baec14eacf7827346845fb,
     type: 3}
-  m_InitCount: 100
+  m_InitCount: 1000
 --- !u!1 &274271274
 GameObject:
   m_ObjectHideFlags: 0
@@ -1567,7 +1567,7 @@ MonoBehaviour:
   <Type>k__BackingField: 1002
   m_prefab: {fileID: 2921772213221326610, guid: 6a899ea3bb32ebb41a624512b387094c,
     type: 3}
-  m_InitCount: 10
+  m_InitCount: 100
 --- !u!1 &661518123
 GameObject:
   m_ObjectHideFlags: 0
@@ -2443,6 +2443,7 @@ GameObject:
   - component: {fileID: 1110643429}
   - component: {fileID: 1110643428}
   - component: {fileID: 1110643430}
+  - component: {fileID: 1110643431}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2494,6 +2495,18 @@ MonoBehaviour:
   m_deadRange: 5
   m_endWave: 3
   m_waveSpawnCount: 0
+--- !u!114 &1110643431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110643427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3134a1fe3476388449ad445cb3113ab5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1183038733
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3475,7 +3488,7 @@ MonoBehaviour:
   <Type>k__BackingField: 1001
   m_prefab: {fileID: 2921772213221326610, guid: 48b367f270a333b448639dda8ff4d724,
     type: 3}
-  m_InitCount: 30
+  m_InitCount: 1000
 --- !u!1 &1604504174
 GameObject:
   m_ObjectHideFlags: 0
@@ -4532,7 +4545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b5c95b19a977e94e8b12d09341f03b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_maxHp: 30
+  m_maxHp: 2147483647
 --- !u!114 &2133358194
 MonoBehaviour:
   m_ObjectHideFlags: 0

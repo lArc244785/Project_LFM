@@ -16,7 +16,7 @@ public class WaveSpawnSystem : MonoBehaviour
 	private int m_wave;
 	private int m_enmeyAmount = 3;
 
-	private int m_waveSpawnAmount = 10;
+	private int m_waveSpawnAmount = 1000;
 
 	private float[,] m_randomSpawnTable = { { 0.8f, 0.2f, 0.0f }, { 0.5f, 0.4f, 0.1f }, { 0.3f, 0.5f, 0.2f } };
 
@@ -37,7 +37,7 @@ public class WaveSpawnSystem : MonoBehaviour
 		m_objectPoolManager = GameObject.Find("ObjectPoolManager").GetComponent<ObjectPoolManager>();
 
 		SetUp();
-		StartWave(0.5f);
+		StartWave(0.01f);
 	}
 
 	private void Update()

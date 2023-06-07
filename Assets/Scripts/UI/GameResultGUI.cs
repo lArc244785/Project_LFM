@@ -31,7 +31,6 @@ public class GameResultGUI : MonoBehaviour
 		gameObject.SetActive(true);
 		string result = isClear ? "Win" : "Loss";
 		float runTime = Time.time - m_startTim;
-		gameObject.SetActive(true);
 		m_resultText.text = $"Player {result}\nPlay Time : {runTime}"; 
 	}
 }

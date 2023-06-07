@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
 	public static GameState State { get; private set; }
 
 	private void Start()
-	{
+	{ 
 		State = GameState.Play;
 		EventManager.AddListner<PlayerWin>(GameClear);
 		EventManager.AddListner<PlayerLoss>(GameOver);
@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
 
 	public void Continue()
 	{
+		EventManager.ResetEvent();
 		SceneManager.LoadScene(0, LoadSceneMode.Single);
 	}
 
