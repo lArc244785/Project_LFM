@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
 
 	private bool CanControl()
 	{
-		return GameManager.State == GameState.Play;
+		return GameFlowManager.State == GameState.Play;
 	}
 
 	private void OnDead()

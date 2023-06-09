@@ -2461,7 +2461,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1110643427}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 088e3441974b36d4f9cf6e75daa11b43, type: 3}
+  m_Script: {fileID: 11500000, guid: baad4f640199f9249a9a89e470216234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1110643429
@@ -2494,7 +2494,6 @@ MonoBehaviour:
   m_isDebug: 1
   m_spawnRange: 15
   m_deadRange: 5
-  m_endWave: 3
   m_waveSpawnCount: 0
   m_waveDeadCount: 0
 --- !u!114 &1110643431

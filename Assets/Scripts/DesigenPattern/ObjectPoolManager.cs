@@ -12,7 +12,7 @@ public enum ObjectPoolKey
 	Item_Buff_ChnageShotGun,
 	
 	Enemy_Normal = 1000,
-	Eneny_Speed,
+	Enemy_Speed,
 	Enemy_Heavy,
 }
 

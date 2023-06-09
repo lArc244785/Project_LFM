@@ -10,8 +10,6 @@ public class WaveSpawnSystem : MonoBehaviour
 	private float m_spawnRange;
 	[SerializeField]
 	private float m_deadRange;
-	[SerializeField]
-	private int m_endWave;
 
 	[SerializeField]
 	private int m_waveSpawnCount;
@@ -20,11 +18,6 @@ public class WaveSpawnSystem : MonoBehaviour
 
 
 	private int m_wave;
-	private int m_enmeyAmount = 3;
-
-	private int m_waveSpawnAmount = 10;
-
-	private float[,] m_randomSpawnTable = { { 0.8f, 0.2f, 0.0f }, { 0.5f, 0.4f, 0.1f }, { 0.3f, 0.5f, 0.2f } };
 
 	private Transform m_playerTransform;
 
@@ -35,8 +28,9 @@ public class WaveSpawnSystem : MonoBehaviour
 
 	private EnemeyManager m_enemyManager;
 
-
 	private List<Enemy> m_waveEnemys = new();
+
+	private WaveSystemData m_data;
 
 	private void Start()
 	{
@@ -64,6 +58,8 @@ public class WaveSpawnSystem : MonoBehaviour
 	public void SetUp()
 	{
 		m_wave = 0;
+		JsonHandler json = new();
+		m_data = json.LoadWaveData(Utility.GetWaveSystemDataPath("TestData"));
 		ResetWaveDate();
 	}
 
@@ -108,15 +104,18 @@ public class WaveSpawnSystem : MonoBehaviour
 		float r = Random.Range(0.0f, 1.0f);
 		float t = 0.0f;
 		ObjectPoolKey spawnEnemy = ObjectPoolKey.Enemy_Normal;
-		for (int i = 0; i < m_enmeyAmount; i++)
+
+
+		foreach(var enemy in m_data.waveDataList[m_wave].EnemyList)
 		{
-			t += m_randomSpawnTable[m_wave, i];
-			if (t >= r)
+			t += enemy.Ratio;
+			if(t >= r)
 			{
-				spawnEnemy = (ObjectPoolKey)((int)ObjectPoolKey.Enemy_Normal + i);
+				spawnEnemy = enemy.Enemy;
 				break;
 			}
 		}
+
 		return spawnEnemy;
 	}
 
@@ -135,16 +134,20 @@ public class WaveSpawnSystem : MonoBehaviour
 	private void NextWave()
 	{
 		m_wave++;
-		if (m_wave == m_endWave)
+		if (IsGameClear())
 		{
 			EventManager.Broadcast(Events.GameClear);
 			m_isWaveSystemOn = false;
 		}
 		else
 		{
-			//Debug.Log("Next Wave");
 			ResetWaveDate();
 		}
+	}
+
+	private bool IsGameClear()
+	{
+		return m_wave == m_data.waveDataList.Count;
 	}
 
 	private bool IsWaveEnemyAllDead()
@@ -154,7 +157,7 @@ public class WaveSpawnSystem : MonoBehaviour
 
 	private bool IsWaveEnemyAllSpawn()
 	{
-		return m_waveSpawnAmount == m_waveSpawnCount;
+		return m_data.waveDataList[m_wave].Amount == m_waveSpawnCount;
 	}
 
 	private void OnDrawGizmos()

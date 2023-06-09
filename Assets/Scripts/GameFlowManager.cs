@@ -10,7 +10,7 @@ public enum GameState
 	GameOver,
 }
 
-public class GameManager : MonoBehaviour
+public class GameFlowManager : MonoBehaviour
 {
 	public static GameState State { get; private set; }
 
