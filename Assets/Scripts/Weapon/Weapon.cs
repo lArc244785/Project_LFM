@@ -10,6 +10,8 @@ public enum WeaponState
 	Empty,
 }
 
+[RequireComponent(typeof(WeaponSound))]
+
 public class Weapon : MonoBehaviour, IWeaponInfo
 {
 	[SerializeField]
@@ -38,6 +40,7 @@ public class Weapon : MonoBehaviour, IWeaponInfo
 
 
 	public event Action OnFire;
+	public event Action OnFireFail;
 	public event Action OnEmpty;
 	public event Action OnReloadStart;
 	public event Action OnReloadEnd;
@@ -70,7 +73,6 @@ public class Weapon : MonoBehaviour, IWeaponInfo
 
 	public void Init()
 	{
-
 		Ammo = MaxAmmo;
 		state = WeaponState.Firable;
 		m_nextFireAbleTime = 0.0f;
@@ -80,7 +82,7 @@ public class Weapon : MonoBehaviour, IWeaponInfo
 		m_realodCoroutine = null;
 	}
 
-	private bool CanFire()
+	public bool CanFire()
 	{
 		return state == WeaponState.Firable && 
 			m_nextFireAbleTime <= Time.time && 
@@ -90,7 +92,9 @@ public class Weapon : MonoBehaviour, IWeaponInfo
 	public void Fire()
 	{
 		if (!CanFire())
+		{
 			return;
+		}
 
 		for(int i = 0; i < m_fireBullet; i++)
 		{
@@ -108,6 +112,13 @@ public class Weapon : MonoBehaviour, IWeaponInfo
 		}
 
 		m_nextFireAbleTime = Time.time + GetFireTick();
+	}
+
+	public void FireFail()
+	{
+		if (CanFire())
+			return;
+		OnFireFail?.Invoke();
 	}
 
 	public void Reload()

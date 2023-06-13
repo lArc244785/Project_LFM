@@ -77,6 +77,9 @@ public class WeaponManager : MonoBehaviour
 				transform.rotation = rot;
 			}
 
+			if (m_inputHandler.GetFireInputDown())
+				m_currentWeapon.FireFail();
+
 			m_currentWeapon.Fire();
 		}
 		//Reload

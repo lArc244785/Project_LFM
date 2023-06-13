@@ -1475,6 +1475,7 @@ GameObject:
   m_Component:
   - component: {fileID: 590709252}
   - component: {fileID: 590709253}
+  - component: {fileID: 590709254}
   m_Layer: 0
   m_Name: BaseMG
   m_TagString: Untagged
@@ -1520,6 +1521,22 @@ MonoBehaviour:
   m_aimPoint: {fileID: 955706462}
   m_name: Base MG
   m_baseRPM: 900
+--- !u!114 &590709254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 590709251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a143f5bece6c5541bca4b47c3ea6e2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_fire: 2
+  m_cock: 5
+  m_reload: 3
+  m_dryFire: 6
 --- !u!1 &596163008
 GameObject:
   m_ObjectHideFlags: 0
@@ -2445,6 +2462,7 @@ GameObject:
   - component: {fileID: 1110643430}
   - component: {fileID: 1110643431}
   - component: {fileID: 1110643432}
+  - component: {fileID: 1110643433}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2521,6 +2539,125 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_liveEnemyCount: 0
+--- !u!114 &1110643433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110643427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d13c99861005d7240bb7484dab2f7b93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - clip: {fileID: 8300000, guid: c1225796f206ac8498a32c2f71db714b, type: 3}
+    id: 0
+    volume: 1
+    pitch: 1
+    loop: 0
+    type: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 07571af4c03c8ee47a26cb2def4528d9, type: 3}
+    id: 5
+    volume: 1
+    pitch: 1
+    loop: 0
+    type: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 9187a55fb9b7c1042b10c2a58077ac08, type: 3}
+    id: 6
+    volume: 1
+    pitch: 1
+    loop: 0
+    type: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 64dbfde3b6f175d4ca8850ae7586db6a, type: 3}
+    id: 2
+    volume: 1
+    pitch: 1
+    loop: 0
+    type: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 82c83278c8641d94980411c098581d51, type: 3}
+    id: 4
+    volume: 1
+    pitch: 1
+    loop: 0
+    type: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: c627c32f37d96e74f9ee955fac301f3c, type: 3}
+    id: 3
+    volume: 1
+    pitch: 1
+    loop: 0
+    type: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: e2734c72e21bc31409bf3ea4e82fe2da, type: 3}
+    id: 8
+    volume: 1
+    pitch: 1
+    loop: 0
+    type: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: b0e667610ea24ce469d2eff660e9addd, type: 3}
+    id: 1
+    volume: 1
+    pitch: 1
+    loop: 0
+    type: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 2d60cff09007dc544b9783f9393bdea7, type: 3}
+    id: 13
+    volume: 1
+    pitch: 1
+    loop: 0
+    type: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 92decd4362a37c44d9fb835d6225b09b, type: 3}
+    id: 12
+    volume: 1
+    pitch: 1
+    loop: 0
+    type: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 3eff5aa966eef1644bff4e54e04329b4, type: 3}
+    id: 9
+    volume: 1
+    pitch: 1
+    loop: 0
+    type: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: e46e1319018324c40841a79c97d7bbc8, type: 3}
+    id: 10
+    volume: 1
+    pitch: 1
+    loop: 0
+    type: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 1fd040cd1568382428c0bb6acf23665c, type: 3}
+    id: 7
+    volume: 1
+    pitch: 1
+    loop: 0
+    type: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 9080ed85e97fe164a8bf8339bdee474c, type: 3}
+    id: 11
+    volume: 1
+    pitch: 1
+    loop: 0
+    type: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 2af4ed074dac3b541bbd520f2ffb83f0, type: 3}
+    id: 14
+    volume: 1
+    pitch: 1
+    loop: 1
+    type: 0
+    source: {fileID: 0}
+  audioMixer: {fileID: 24100000, guid: 7981daa9177789946b6bfd1b2db978b8, type: 2}
 --- !u!1001 &1183038733
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3410,6 +3547,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1469518523}
   - component: {fileID: 1469518524}
+  - component: {fileID: 1469518525}
   m_Layer: 0
   m_Name: ShotGun
   m_TagString: Untagged
@@ -3454,7 +3592,23 @@ MonoBehaviour:
   <Range>k__BackingField: 5
   m_aimPoint: {fileID: 1222005817}
   m_name: ShotGun
-  m_baseRPM: 300
+  m_baseRPM: 100
+--- !u!114 &1469518525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1469518522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a143f5bece6c5541bca4b47c3ea6e2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_fire: 7
+  m_cock: 9
+  m_reload: 8
+  m_dryFire: 10
 --- !u!1 &1545148947
 GameObject:
   m_ObjectHideFlags: 0
@@ -4573,7 +4727,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_isDebug: 1
-  m_viewAngle: 195.74
+  m_viewAngle: 30
   m_range: 10
   m_targetMask:
     serializedVersion: 2

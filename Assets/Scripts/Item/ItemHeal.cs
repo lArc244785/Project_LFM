@@ -19,6 +19,7 @@ public class ItemHeal : ItemBase
 	public override void Use()
 	{
 		m_health.Heal(m_heal);
+		SoundManager.Instance.Play(SoundID.Item_PickUp_Heal);
 		Release();
 	}
 }

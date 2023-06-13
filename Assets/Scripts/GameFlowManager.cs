@@ -17,6 +17,7 @@ public class GameFlowManager : MonoBehaviour
 	private void Start()
 	{ 
 		State = GameState.Play;
+		SoundManager.Instance.Play(SoundID.BGM_0);
 		EventManager.AddListner<GameClear>(GameClear);
 		EventManager.AddListner<GameOver>(GameOver);
 	}

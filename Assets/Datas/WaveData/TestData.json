@@ -1,1 +1,1 @@
-{"waveDataList":[{"Tick":1.0,"Amount":10,"EnemyList":[{"Enemy":1000,"Ratio":1.0}]},{"Tick":0.8,"Amount":20,"EnemyList":[{"Enemy":1000,"Ratio":0.8},{"Enemy":1001,"Ratio":0.2}]}]}
+{"waveDataList":[{"Tick":1.0,"Amount":10,"EnemyList":[{"Enemy":1000,"Ratio":1.0}]},{"Tick":0.8,"Amount":30,"EnemyList":[{"Enemy":1000,"Ratio":0.5},{"Enemy":1001,"Ratio":0.2},{"Enemy":1002,"Ratio":0.3}]}]}
