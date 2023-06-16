@@ -21,6 +21,8 @@ public class WeaponManager : MonoBehaviour
 
 	private IWeaponInfo m_currentWeaponInfo;
 
+	private CameraProduction m_cameraProduction;
+
 	private int m_addRPM;
 	public int AddRPM
 	{
@@ -48,7 +50,7 @@ public class WeaponManager : MonoBehaviour
 		m_fieldOfView = fov;
 		m_actor = actor;
 		m_weaponInfoGUI = GameObject.Find("WeaponInfo").GetComponent<WeaponInfoGUI>();
-
+		m_cameraProduction = GameObject.Find("VCamMain").GetComponent<CameraProduction>();
 		m_weapons = transform.Find("WeaponPivot").GetComponentsInChildren<Weapon>();
 		foreach (Weapon weapon in m_weapons)
 			weapon.gameObject.SetActive(false);
@@ -80,7 +82,11 @@ public class WeaponManager : MonoBehaviour
 			if (m_inputHandler.GetFireInputDown())
 				m_currentWeapon.FireFail();
 
-			m_currentWeapon.Fire();
+			if(m_currentWeapon.CanFire())
+			{
+				m_currentWeapon.Fire();
+				m_cameraProduction.ShakeCamera(m_currentWeapon.ShackAmplitude, m_currentWeapon.ShackFrequency, 0.1f);
+			}
 		}
 		//Reload
 		if (m_inputHandler.GetReload())

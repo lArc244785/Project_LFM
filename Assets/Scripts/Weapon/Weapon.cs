@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public enum WeaponState
 {
@@ -59,6 +60,15 @@ public class Weapon : MonoBehaviour, IWeaponInfo
 	public int BaseRPM => m_baseRPM;
 	public int AddRPM { get; set; }
 
+	[field:SerializeField]
+	public float ShackAmplitude { private set; get; }
+	[field:SerializeField]
+	public float ShackFrequency { private set; get; }
+
+	//===Muzzle Flash
+	[Header("Effect"), SerializeField]
+	private VisualEffect m_muzzleEffect;
+	private VisualEffect m_muzzleTulEffect;
 
 	private float GetFireTick()
 	{
@@ -69,6 +79,7 @@ public class Weapon : MonoBehaviour, IWeaponInfo
 	private void Start()
 	{
 		m_poolManager = GameObject.Find("ObjectPoolManager").GetComponent<ObjectPoolManager>();
+		m_muzzleTulEffect = m_muzzleEffect.GetComponentInChildren<VisualEffect>();
 	}
 
 	public void Init()
@@ -91,12 +102,7 @@ public class Weapon : MonoBehaviour, IWeaponInfo
 
 	public void Fire()
 	{
-		if (!CanFire())
-		{
-			return;
-		}
-
-		for(int i = 0; i < m_fireBullet; i++)
+		for (int i = 0; i < m_fireBullet; i++)
 		{
 			var shotDir = GetShotDir();
 			var bullet = m_poolManager.GetPooledObject(ObjectPoolKey.Bullet_MG);
@@ -112,6 +118,13 @@ public class Weapon : MonoBehaviour, IWeaponInfo
 		}
 
 		m_nextFireAbleTime = Time.time + GetFireTick();
+		MuzzleFlashEffect();
+	}
+
+	private void MuzzleFlashEffect()
+	{
+		m_muzzleEffect.Play();
+		m_muzzleTulEffect.Play();
 	}
 
 	public void FireFail()
