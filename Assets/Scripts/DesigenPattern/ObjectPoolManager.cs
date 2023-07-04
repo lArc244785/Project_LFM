@@ -14,6 +14,8 @@ public enum ObjectPoolKey
 	Enemy_Normal = 1000,
 	Enemy_Speed,
 	Enemy_Heavy,
+
+	Effect_ActorDead,
 }
 
 public class ObjectPoolManager : MonoBehaviour

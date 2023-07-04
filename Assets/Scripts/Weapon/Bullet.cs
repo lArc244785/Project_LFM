@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class Bullet : MonoBehaviour
 {
@@ -15,13 +16,18 @@ public class Bullet : MonoBehaviour
 	private float m_deadTime;
 
 	private PooledObject m_pooledObject;
+	private ObjectPoolManager m_poolManager;
 
 	private LayerMask m_hitMask;
+
+	private VisualEffect m_effect;
 
 	private void Start()
 	{
 		m_pooledObject = GetComponent<PooledObject>();
 		m_hitMask = LayerMask.GetMask("Enemy");
+		m_poolManager = GameObject.Find("ObjectPoolManager").GetComponent<ObjectPoolManager>();
+		m_effect = GetComponent<VisualEffect>();
 	}
 
 	public void Init(Transform pivot, Vector3 dir)
@@ -56,6 +62,8 @@ public class Bullet : MonoBehaviour
 			return;
 
 		other.GetComponent<Damagable>().OnDamge(m_damage);
+
+		m_pooledObject.Release();
 	}
 
 }

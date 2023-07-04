@@ -11,6 +11,8 @@ public class NavMeshMovement : MonoBehaviour,IMovable
 
 	public Transform Target;
 
+	public float MaxSpeed { private set; get; }
+
 	public float Speed { get => mAgent.speed; set => mAgent.speed = value; }
 	public bool IsMoveAble { get => mIsMoveAble; set => mIsMoveAble = value; }
 	public Vector3 MoveDir { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
@@ -19,6 +21,7 @@ public class NavMeshMovement : MonoBehaviour,IMovable
 	{
 		mAgent = GetComponent<NavMeshAgent>();
 		Target = GameObject.Find("Player").transform;
+		MaxSpeed = Speed;
 	}
 
 	private void Update()

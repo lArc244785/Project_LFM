@@ -14,6 +14,10 @@ public class PlayerController : MonoBehaviour
 	private PlayerMovement m_playerMovement;
 	private PlayerInputHandler m_playerInputHandler;
 
+	private ActorFlash m_actorFlash;
+
+	private float m_ghostTime;
+
 	private void Start()
 	{
 		m_health = GetComponent<Health>();
@@ -23,6 +27,7 @@ public class PlayerController : MonoBehaviour
 		m_playerMovement = GetComponent<PlayerMovement>();
 		m_playerInputHandler = GetComponent<PlayerInputHandler>();
 		m_fieldOfView = GetComponent<FieldOfView>();
+		m_actorFlash = GetComponent<ActorFlash>();
 
 		m_weaponManager.Init(m_playerInputHandler, m_fieldOfView, m_actor);
 
@@ -30,13 +35,16 @@ public class PlayerController : MonoBehaviour
 		Events.PlayerHeathUpdate.PlayerHealth = m_health;
 		m_health.OnDead += OnDead;
 		m_health.OnHit += OnHit;
+		m_health.OnHit += OnGhost;
 		EventManager.Broadcast(Events.PlayerHeathUpdate);
 	}
 
 	private void Update()
 	{
 		if (!CanControl())
-			return; 
+			return;
+
+		Ghost();
 
 		m_playerMovement.Move(m_playerInputHandler.GetMoveDir());
 		transform.rotation = m_playerInputHandler.GetRotaion(transform.rotation);
@@ -56,5 +64,23 @@ public class PlayerController : MonoBehaviour
 	private void OnHit()
 	{
 		EventManager.Broadcast(Events.PlayerHeathUpdate);
+	}
+
+	private void OnGhost()
+	{
+		m_ghostTime = 0.2f;
+		m_health.IsGodMode = true;
+	}
+
+	private void Ghost()
+	{
+		if (m_ghostTime > 0.0f)
+		{
+			m_ghostTime -= Time.deltaTime;
+		}
+		else
+		{
+			m_health.IsGodMode = false;
+		}
 	}
 }

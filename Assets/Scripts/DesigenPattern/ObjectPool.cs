@@ -36,7 +36,7 @@ public class ObjectPool : MonoBehaviour
 		clone.gameObject.SetActive(false);
 		var po = clone.GetComponent<PooledObject>();
 		po.Pool = this;
-		return clone.GetComponent<PooledObject>();
+		return po;
 	}
 
 	public GameObject GetPooledObject()

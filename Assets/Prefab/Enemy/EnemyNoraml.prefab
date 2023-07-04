@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 2796086451942178873}
   - component: {fileID: 2921772213221326610}
   - component: {fileID: 5620093135691199766}
+  - component: {fileID: 1768503759883512910}
   m_Layer: 7
   m_Name: EnemyNoraml
   m_TagString: Untagged
@@ -165,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b5c95b19a977e94e8b12d09341f03b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_maxHp: 0
+  m_maxHp: 10
 --- !u!114 &2796086451942178820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,6 +281,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 953b9e0ea1d82cf468c8c1d50736cc15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1768503759883512910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2796086451942178823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 609cbf0c608d40b4cb710359011b899f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_model: {fileID: 2796086451087700285}
+  m_duration: 0.1
 --- !u!1 &2796086452079651209
 GameObject:
   m_ObjectHideFlags: 0
